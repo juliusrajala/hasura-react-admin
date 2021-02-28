@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "prestart": "npm run generate",
-    "generate": "graphql-codegen",
+    "generate": "graphql-codegen --require dotenv/config --config codegen.yml",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -48,6 +48,8 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.1",
-    "@graphql-codegen/core": "^1.17.9"
+    "@graphql-codegen/core": "^1.17.9",
+    "@graphql-codegen/typescript": "^1.21.0",
+    "dotenv": "^8.2.0"
   }
 }
