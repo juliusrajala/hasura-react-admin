@@ -26,15 +26,10 @@ const createHasuraProvider = async (): Promise<DataProvider> => {
     throw Error('Missing Hasura-url');
   }
 
-  try {
-    const apolloClient = createApolloClient();
+  const apolloClient = createApolloClient();
 
-    const dataProvider: DataProvider = await buildHasuraProvider({ client: apolloClient });
-    return dataProvider
-  } catch (err) {
-    console.error('Error creating hasura provider', err);
-    throw Error('Could not create Hasura-provider');
-  }
+  const dataProvider: DataProvider = await buildHasuraProvider({ client: apolloClient });
+  return dataProvider
 }
 
 export default createHasuraProvider;

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Admin, DataProvider } from 'react-admin';
+import { Admin, DataProvider, Resource } from 'react-admin';
 import buildHasuraProvider from './core/hasuraProvider';
+import { MessageList } from './resources/messages';
+import { UserList } from './resources/users';
 
-function App() {
+const App = () => {
   const [dataProvider, setDataProvider] = useState<DataProvider | null>(null);
   const [providerError, setProviderError] = useState<string | null>(null);
 
@@ -32,7 +34,8 @@ function App() {
 
   return (
     <Admin dataProvider={dataProvider}>
-      <span>Hello world!</span>
+      <Resource name="messages" list={MessageList} />
+      <Resource name="users" list={UserList} />
     </Admin>
   );
 }
