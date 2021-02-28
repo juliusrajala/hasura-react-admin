@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Admin, DataProvider } from 'react-admin';
+import buildHasuraProvider from './core/hasuraProvider';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [dataProvider, setDataProvider] = useState<DataProvider | null>(null);
+  const [providerError, setProviderError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const createDataProvider = async (): Promise<void> => {
+      try {
+        const dataProvider = await buildHasuraProvider();
+        setDataProvider(() => dataProvider);
+      } catch (err) {
+        setProviderError(err || 'Unknown error creating provider');
+      }
+    };
+    createDataProvider();
+  }, []);
+
+  if (!dataProvider) {
+    return <span>Loading...</span>
+  }
+
+  if (providerError) {
+    return <div>
+      <h1>Provider error stopped React-Admin from initializing.</h1>
+      <code>{providerError}</code>
     </div>
+  }
+
+  return (
+    <Admin dataProvider={dataProvider}>
+      <span>Hello world!</span>
+    </Admin>
   );
 }
 
