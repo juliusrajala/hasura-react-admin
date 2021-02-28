@@ -37,7 +37,7 @@ const MessageFilter = (props: object) => (
 );
 
 export const MessageList = (props: object) => (
-  <List /* filters={<MessageFilter />}  */ bulkActionButtons={false} {...props}>
+  <List filters={<MessageFilter />} bulkActionButtons={false} {...props}>
     <Datagrid rowClick="edit">
       <TextField source="id" label="Message Id" />
       <TextField source="content" />
